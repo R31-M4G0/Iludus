@@ -240,6 +240,15 @@ app.post("/save-score", (req, res) => {
   )
 })
 
+
+app.get("/debug-users", (req, res) => {
+  connection.query("SELECT id, email, username FROM users", (err, result) => {
+    if (err) return res.status(500).json(err)
+    res.json(result)
+  })
+})
+
+
 // ========================
 // START SERVER
 // ========================
