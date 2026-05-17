@@ -1,24 +1,16 @@
-import mysql from "mysql2"
+import mysql from "mysql2/promise"
 
-const connection = mysql.createConnection({
-
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "quizgame"
-
-})
-
-connection.connect((err) => {
-
-  if (err) {
-    console.log("❌ Erro MySQL:", err)
-  }
-
-  else {
-    console.log("✅ MySQL conectado")
-  }
-
+const connection = mysql.createPool({
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
+  ssl: {
+    rejectUnauthorized: false
+  },
+  waitForConnections: true,
+  connectionLimit: 10
 })
 
 export default connection

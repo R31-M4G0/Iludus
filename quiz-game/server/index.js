@@ -2,7 +2,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
 import cors from "cors"
-import db from "./db.js"
+import connection from "./db.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
@@ -509,9 +509,6 @@ app.post("/save-answer", async (req, res) => {
     })
   }
 })
-
-
-
 
 // =========================================
 // START SERVER
