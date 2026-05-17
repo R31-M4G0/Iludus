@@ -248,6 +248,13 @@ app.get("/debug-users", (req, res) => {
   })
 })
 
+app.get("/test-db", (req, res) => {
+  connection.query("SELECT 1", (err) => {
+    if (err) return res.status(500).json({ ok: false })
+    res.json({ ok: true })
+  })
+})
+
 
 // ========================
 // START SERVER
