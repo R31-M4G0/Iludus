@@ -7,17 +7,8 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
 import { getTriviaQuestions } from "./services/trivia.js"
-
-
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-
-const verificationCodes = {}
 const app = express()
 
-// =========================================
-// MIDDLEWARES
-// =========================================
 app.use(cors({
   origin: [
     "http://localhost:5173",
@@ -25,6 +16,17 @@ app.use(cors({
   ],
   credentials: true
 }))
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+const verificationCodes = {}
+
+
+// =========================================
+// MIDDLEWARES
+// =========================================
+
 
 // =========================================
 // HEALTH CHECK
