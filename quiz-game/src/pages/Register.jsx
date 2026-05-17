@@ -4,7 +4,6 @@ import axios from "axios"
 import API from "../services/api"
 import "../styles/auth.css"
 import "../styles/menu.css"
-
 export default function Register() {
 
   const navigate = useNavigate()

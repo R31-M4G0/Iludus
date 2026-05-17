@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../context/GameContext"
 import "../styles/game.css"
 import GameOver from "../pages/GameOver"
-import API from "../services/api"
 
 import {
   playMusic,
