@@ -2,7 +2,7 @@ import dotenv from "dotenv"
 dotenv.config()
 import express from "express"
 import cors from "cors"
-import connection from "./db.js"
+import db from "./db.js"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
@@ -11,17 +11,13 @@ import { getTriviaQuestions } from "./services/trivia.js"
 const verificationCodes = {}
 const app = express()
 
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
-
 // =========================================
 // MIDDLEWARES
 // =========================================
 
-app.use(cors())
+app.use(cors({
+  origin: "https://iludus-2jaq.vercel.app/"
+}))
 app.use(express.json())
 
 // =========================================
@@ -233,7 +229,7 @@ app.post("/login", (req, res) => {
           username: user.username,
           email: user.email,
           xp: user.xp,
-          level: user.level_player,
+          level: user.level,
           score: user.total_score
         }
       })
@@ -289,28 +285,6 @@ app.post("/save-score", (req, res) => {
     }
   )
 })
-
-// =========================================
-// LEADERBOARD
-// =========================================
-
-app.get("/leaderboard", (req, res) => {
-  const sql = `
-    SELECT username, total_score, ranking_points, level
-    FROM users
-    ORDER BY ranking_points DESC
-    LIMIT 20
-  `
-
-  connection.query(sql, (err, results) => {
-    if (err) {
-      return res.status(500).json([])
-    }
-
-    res.json(results)
-  })
-})
-
 
 // =========================================
 // Ranking
