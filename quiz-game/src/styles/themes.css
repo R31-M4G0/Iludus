@@ -375,3 +375,100 @@
   position: relative;
   z-index: 2;
 }
+
+.theme-select-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  z-index: 9999;
+}
+
+.theme-select-card {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #111;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.theme-level-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .theme-level-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.level-theme-btn {
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+  transition: 0.2s;
+}
+
+.level-theme-btn.active {
+  background: #4f46e5;
+  color: white;
+}
+
+.confirm-themes-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+@media (max-width: 900px) {
+  .game-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-card {
+    border-radius: 10px;
+  }
+
+  .game-header {
+    font-size: 12px;
+  }
+
+  .helps {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .option-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
+.theme-select-card {
+  display: flex;
+  flex-direction: column;
+}

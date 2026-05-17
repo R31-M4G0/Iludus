@@ -995,3 +995,125 @@
       translateY(0);
   }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+.game-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.game-card {
+  width: 100%;
+  max-width: 900px;
+  background: #111;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hud-center {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.question-box h2 {
+  font-size: 22px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .question-box h2 {
+    font-size: 18px;
+  }
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+
+  .option-btn {
+    font-size: 16px;
+    padding: 14px;
+  }
+}
+
+.helps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.levelup-screen,
+.theme-select-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+@media (max-width: 480px) {
+  .game-card {
+    padding: 12px;
+  }
+
+  .game-header {
+    font-size: 12px;
+  }
+
+  .level-box {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .game-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-card {
+    border-radius: 10px;
+  }
+
+  .game-header {
+    font-size: 12px;
+  }
+
+  .helps {
+    gap: 6px;
+  }
+}
+
+@media (max-width: 400px) {
+  .option-btn {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
