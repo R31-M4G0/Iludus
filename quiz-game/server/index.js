@@ -7,7 +7,6 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
 import { getTriviaQuestions } from "./services/trivia.js"
-import API from "../src/services/api.js"
 
 
 const verificationCodes = {}
@@ -333,9 +332,9 @@ app.post("/questions", (req, res) => {
   console.log("TEMAS RECEBIDOS:", themes)
 
   // segurança
-  if (!themes || themes.length === 0) {
-    return res.json([])
-  }
+if (!Array.isArray(themes) || themes.length === 0) {
+  return res.json([])
+}
 
   // cria ?, ?, ?, ?
   const placeholders = themes.map(() => "?").join(",")
@@ -401,7 +400,7 @@ app.post("/save-progress", async (req, res) => {
 
     } = req.body
 
-    await db.execute(
+    connection.query(
 
       `
       INSERT INTO player_progress
@@ -466,7 +465,7 @@ app.post("/save-answer", async (req, res) => {
 
     } = req.body
 
-    await db.execute(
+    connection.query(
 
       `
       INSERT INTO player_answers
