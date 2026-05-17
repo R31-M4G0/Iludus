@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import "../styles/gameover.css"
-import API from "../services/api"
+const API = import.meta.env.VITE_API_URL
 
 export default function GameOver({ score, rankingPoints, lives }) {
   const navigate = useNavigate()

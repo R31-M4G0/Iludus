@@ -4,7 +4,7 @@ import { useEffect } from "react"
 import API from "../services/api"
 
 export default function Menu() {
-
+  const API = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
 
   const user =

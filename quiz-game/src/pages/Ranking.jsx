@@ -3,7 +3,7 @@ import "../styles/ranking.css"
 import API from "../services/api"
 
 export default function Ranking() {
-
+  const API = import.meta.env.VITE_API_URL
   const [players, setPlayers] =
     useState([])
 

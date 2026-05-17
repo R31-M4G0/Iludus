@@ -12,7 +12,7 @@ import {
 import { useEffect } from "react"
 
 export default function ThemeSelect() {
-
+  const API = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
   const { setThemes } = useContext(GameContext)
 

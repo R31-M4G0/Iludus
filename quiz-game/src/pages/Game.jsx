@@ -68,7 +68,7 @@ const [questionsAnswered, setQuestionsAnswered] =
 
 const [tempThemes, setTempThemes] =
   useState([])
-
+const API = import.meta.env.VITE_API_URL
 
   // =========================================
   // CARREGAR PERGUNTAS
