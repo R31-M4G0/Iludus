@@ -1,0 +1,65 @@
+.ranking-container {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background:
+    radial-gradient(circle,
+    #0b1220,
+    #050814);
+
+  color: white;
+}
+
+.ranking-card {
+
+  width: 900px;
+
+  padding: 30px;
+
+  border-radius: 25px;
+
+  background:
+    rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(15px);
+}
+
+.ranking-list {
+
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.ranking-player {
+
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 18px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(255,255,255,0.06);
+
+  transition: 0.2s;
+}
+
+.ranking-player:hover {
+
+  transform: scale(1.02);
+
+  background:
+    rgba(255,255,255,0.12);
+}
