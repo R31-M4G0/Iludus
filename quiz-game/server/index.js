@@ -7,6 +7,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
 import { getTriviaQuestions } from "./services/trivia.js"
+const API = import.meta.env.VITE_API_URL || "http://localhost:3001"
 
 const verificationCodes = {}
 const app = express()
@@ -20,6 +21,7 @@ app.use(cors({
     if (!origin) return callback(null, true)
 
     const allowed = [
+      API,
       "https://iludus-2jaq.vercel.app"
     ]
 
