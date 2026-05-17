@@ -8,6 +8,16 @@ import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
 import { getTriviaQuestions } from "./services/trivia.js"
 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://iludus-2jaq.vercel.app"
+  ],
+  credentials: true
+}))
+
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const verificationCodes = {}
 const app = express()
@@ -16,13 +26,7 @@ const app = express()
 // MIDDLEWARES
 // =========================================
 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://iludus-2jaq.vercel.app"
-  ],
-  credentials: true
-}))
+
 // =========================================
 // HEALTH CHECK
 // =========================================
@@ -182,6 +186,12 @@ app.post("/register", (req, res) => {
 // =========================================
 
 app.post("/login", (req, res) => {
+  if (!req.body) {
+    return res.status(400).json({
+      error: "Body vazio"
+    })
+  }
+
   const { email, password } = req.body
 
   connection.query(
@@ -326,6 +336,11 @@ app.get("/leaderboard", (req, res) => {
 // =========================================
 
 app.post("/questions", (req, res) => {
+  if (!req.body) {
+    return res.status(400).json({
+      error: "Body vazio"
+    })
+  }
 
   const { themes } = req.body
 
