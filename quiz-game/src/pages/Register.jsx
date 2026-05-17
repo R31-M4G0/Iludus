@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import axios from "axios"
-
+import API from "../services/api"
 import "../styles/auth.css"
 import "../styles/menu.css"
 
@@ -36,12 +36,12 @@ export default function Register() {
 
       setLoading(true)
 
-      setError("")
-      setSuccess("")
+        setError("")
+        setSuccess("")
 
-      await axios.post(
+        await axios.post(
 
-        "http://localhost:3001/send-code",
+          `${API}/send-code`,
 
         {
           email
@@ -90,7 +90,7 @@ export default function Register() {
 
       const response = await axios.post(
 
-        "http://localhost:3001/register",
+        `${API}/register`,
 
         {
           username,

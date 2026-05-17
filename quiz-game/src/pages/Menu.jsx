@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import "../styles/menu.css"
 import { useEffect } from "react"
-
+import API from "../services/api"
 
 export default function Menu() {
 

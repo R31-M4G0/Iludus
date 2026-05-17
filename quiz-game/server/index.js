@@ -7,7 +7,8 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import { sendVerificationEmail } from "./services/mailer.js"
 import { getTriviaQuestions } from "./services/trivia.js"
-const API = import.meta.env.VITE_API_URL || "http://localhost:3001"
+import API from "../src/services/api.js"
+
 
 const verificationCodes = {}
 const app = express()

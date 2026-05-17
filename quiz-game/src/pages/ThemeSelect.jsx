@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { GameContext } from "../context/GameContext"
-
+import API from "../services/api"
 import "../styles/themes.css"
 
 import {

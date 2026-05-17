@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import "../styles/ranking.css"
+import API from "../services/api"
 
 export default function Ranking() {
 
@@ -14,7 +15,7 @@ export default function Ranking() {
 
         const response =
           await fetch(
-            "http://localhost:3001/ranking"
+            `${API}/ranking`
           )
 
         const data =

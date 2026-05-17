@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { GameContext } from "../context/GameContext"
 import "../styles/game.css"
 import GameOver from "../pages/GameOver"
+import API from "../services/api"
 
 import {
   playMusic,
@@ -82,7 +83,7 @@ const [tempThemes, setTempThemes] =
 
         setLoading(true)
 
-        const response = await fetch("http://localhost:3001/questions", {
+        const response = await fetch(`${API}/questions`, {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
@@ -291,7 +292,7 @@ if (!q) {
 
   // ✔ CORRETA
 
-  fetch("http://localhost:3001/save-answer", {
+  fetch(`${API}/save-answer`, {
 
   method: "POST",
 
@@ -356,7 +357,7 @@ if (answered % 10 === 0) {
   setShowThemeSelection(true)
   setTime(30)
 
-  fetch("http://localhost:3001/save-progress", {
+  fetch(`${API}/save-progress`, {
 
   method: "POST",
 
@@ -471,7 +472,7 @@ async function loadNextLevel() {
     setLoadingNextLevel(true)
 
     const response = await fetch(
-      "http://localhost:3001/questions",
+      `${API}/questions`,
       {
 
         method: "POST",
