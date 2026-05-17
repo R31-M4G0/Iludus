@@ -16,10 +16,22 @@ const app = express()
 // =========================================
 
 app.use(cors({
-  origin: "https://iludus-2jaq.vercel.app/"
-}))
-app.use(express.json())
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true)
 
+    const allowed = [
+      "http://localhost:5173",
+      "https://iludus-2jaq.vercel.app"
+    ]
+
+    if (allowed.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error("Not allowed by CORS"))
+    }
+  },
+  credentials: true
+}))
 // =========================================
 // HEALTH CHECK
 // =========================================
