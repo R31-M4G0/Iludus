@@ -8,7 +8,6 @@ import "../styles/menu.css"
 
 export default function Login() {
   
-  const API = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
 
   const [email, setEmail] = useState("")

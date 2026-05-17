@@ -51,7 +51,8 @@ app.post("/send-code", async (req, res) => {
     verificationCodes[email] = code
 
     try {
-      await sendVerificationEmail(email, code)
+      console.log("CODE GERADO:", code)
+return res.json({ success: true })
     } catch (err) {
       console.log("EMAIL ERROR:", err)
       return res.status(500).json({ error: "Erro ao enviar email" })
@@ -133,6 +134,7 @@ app.post("/register", (req, res) => {
 // LOGIN (FIXED SAFE)
 // ========================
 app.post("/login", (req, res) => {
+  console.log("LOGIN BODY:", req.body)
   const { email, password } = req.body || {}
 
   if (!email || !password) {

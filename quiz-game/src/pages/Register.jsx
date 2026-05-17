@@ -7,7 +7,6 @@ import "../styles/menu.css"
 export default function Register() {
 
   const navigate = useNavigate()
-  const API = import.meta.env.VITE_API_URL
   // =========================================
   // STATES
   // =========================================
