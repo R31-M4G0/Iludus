@@ -1118,8 +1118,32 @@
   }
 }
 
+
 /* =========================================
-GAME MOBILE FIX
+RESPONSIVIDADE TOTAL
+========================================= */
+
+@media (max-width: 1024px) {
+
+  .game-card {
+    width: 95%;
+    height: auto;
+    min-height: 95vh;
+    padding: 20px;
+  }
+
+  .question-box {
+    width: 45%;
+    font-size: 28px;
+  }
+
+  .option-btn {
+    width: 320px;
+  }
+}
+
+/* =========================================
+TABLET
 ========================================= */
 
 @media (max-width: 768px) {
@@ -1127,45 +1151,98 @@ GAME MOBILE FIX
   .game-container {
 
     padding: 10px;
+
+    align-items: flex-start;
+
+    overflow-y: auto;
   }
 
   .game-card {
 
     width: 100%;
+    min-height: auto;
 
-    padding: 16px;
+    height: auto;
 
-    border-radius: 18px;
+    padding: 18px;
+
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  /* REMOVE ABSOLUTE */
+  .game-header,
+  .themes,
+  .question-box,
+  .options,
+  .helps,
+  .stats {
+
+    position: relative !important;
+
+    top: unset !important;
+    left: unset !important;
+    right: unset !important;
+    bottom: unset !important;
+
+    transform: none !important;
   }
 
   .game-header {
 
+    width: 100%;
+
+    display: flex;
+
     flex-direction: column;
 
-    gap: 10px;
+    gap: 12px;
+
+    align-items: center;
+
+    text-align: center;
   }
 
   .hud-center {
 
     width: 100%;
 
-    justify-content: space-between;
-
     display: flex;
+
+    justify-content: center;
 
     flex-wrap: wrap;
 
     gap: 10px;
   }
 
-  .question-box h2 {
+  .themes {
 
-    font-size: 20px;
+    text-align: center;
 
-    line-height: 1.4;
+    font-size: 13px;
+
+    opacity: 0.8;
+  }
+
+  .question-box {
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 24px;
+
+    line-height: 1.5;
   }
 
   .options {
+
+    width: 100%;
 
     display: flex;
 
@@ -1178,16 +1255,20 @@ GAME MOBILE FIX
 
     width: 100%;
 
-    padding: 14px;
+    min-height: 65px;
 
     font-size: 15px;
+
+    padding: 14px;
   }
 
   .helps {
 
+    width: 100%;
+
     display: grid;
 
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 10px;
   }
@@ -1195,22 +1276,108 @@ GAME MOBILE FIX
   .help-btn {
 
     width: 100%;
+    min-width: unset;
+  }
+
+  .stats {
+
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: row;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    text-align: center;
+  }
+
+  .theme-select-card,
+  .levelup-card,
+  .gameover-card {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    padding: 20px;
+
+    border-radius: 20px;
+  }
+
+  .theme-level-grid,
+  .gameover-grid {
+
+    grid-template-columns: 1fr;
   }
 }
 
-/* EXTRA SMALL */
+/* =========================================
+MOBILE PEQUENO
+========================================= */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
 
-  .question-box h2 {
+  .game-card {
 
-    font-size: 18px;
+    padding: 14px;
+
+    border-radius: 16px;
+  }
+
+  .question-box {
+
+    font-size: 20px;
   }
 
   .option-btn {
 
     font-size: 14px;
 
+    min-height: 58px;
+
     padding: 12px;
+  }
+
+  .helps {
+
+    grid-template-columns: 1fr;
+  }
+
+  .help-btn {
+
+    padding: 12px;
+  }
+
+  .player-mini,
+  .level-box {
+
+    font-size: 12px;
+
+    padding: 8px 12px;
+  }
+
+  .game-header {
+
+    font-size: 12px;
+  }
+
+  .loading-title {
+
+    font-size: 22px;
+  }
+
+  .gameover-title {
+
+    font-size: 32px;
+  }
+
+  .game-stat strong {
+
+    font-size: 24px;
   }
 }
