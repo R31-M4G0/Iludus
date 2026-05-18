@@ -1117,3 +1117,100 @@
     padding: 10px;
   }
 }
+
+/* =========================================
+GAME MOBILE FIX
+========================================= */
+
+@media (max-width: 768px) {
+
+  .game-container {
+
+    padding: 10px;
+  }
+
+  .game-card {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border-radius: 18px;
+  }
+
+  .game-header {
+
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .hud-center {
+
+    width: 100%;
+
+    justify-content: space-between;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+  }
+
+  .question-box h2 {
+
+    font-size: 20px;
+
+    line-height: 1.4;
+  }
+
+  .options {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+  }
+
+  .option-btn {
+
+    width: 100%;
+
+    padding: 14px;
+
+    font-size: 15px;
+  }
+
+  .helps {
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 10px;
+  }
+
+  .help-btn {
+
+    width: 100%;
+  }
+}
+
+/* EXTRA SMALL */
+
+@media (max-width: 420px) {
+
+  .question-box h2 {
+
+    font-size: 18px;
+  }
+
+  .option-btn {
+
+    font-size: 14px;
+
+    padding: 12px;
+  }
+}
