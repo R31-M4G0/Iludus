@@ -178,54 +178,58 @@ app.post("/login", (req, res) => {
 // QUESTIONS (CRITICAL FIX)
 // ========================
 app.post("/questions", (req, res) => {
-  console.log("BODY COMPLETO:", req.body)
+  try {
 
-  const themes = req.body?.themes
+    console.log("BODY:", req.body)
 
-  console.log("THEMES RECEBIDOS:", themes)
+    const themes = req.body?.themes
 
-  if (!Array.isArray(themes) || themes.length === 0) {
-    console.log("❌ THEMES INVALIDOS")
-    return res.json([])
-  }
-
-  const placeholders = themes.map(() => "?").join(",")
-
-  const sql = `
-    SELECT * FROM questions
-    WHERE theme IN (${placeholders})
-    ORDER BY RAND()
-    LIMIT 10
-  `
-
-  console.log("SQL:", sql)
-  console.log("PARAMS:", themes)
-
-  connection.query(sql, themes, (err, results) => {
-
-    if (err) {
-      console.log("❌ MYSQL ERROR:", err)
-      return res.status(500).json([])
+    if (!Array.isArray(themes) || themes.length === 0) {
+      return res.json([])
     }
 
-    console.log("QUESTÕES ENCONTRADAS:", results.length)
+    const placeholders = themes.map(() => "?").join(",")
 
-    const formatted = results.map(q => ({
-      id: q.id,
-      question: q.question,
-      options: [
-        q.option1,
-        q.option2,
-        q.option3,
-        q.option4
-      ],
-      answer: q.answer,
-      theme: q.theme,
-      difficulty: q.difficulty
-    }))
+    const sql = `
+      SELECT * FROM questions
+      WHERE theme IN (${placeholders})
+      ORDER BY RAND()
+      LIMIT 10
+    `
 
-    res.json(formatted)
-  })
+    connection.query(sql, themes, (err, results) => {
+
+      if (err) {
+        console.log("MYSQL ERROR:", err)
+        return res.status(500).json({
+          error: "DB error"
+        })
+      }
+
+      if (!results) {
+        return res.json([])
+      }
+
+      const formatted = results.map(q => ({
+        id: q.id,
+        question: q.question,
+        options: [
+          q.option1,
+          q.option2,
+          q.option3,
+          q.option4
+        ],
+        answer: q.answer,
+        theme: q.theme
+      }))
+
+      return res.json(formatted)
+    })
+
+  } catch (err) {
+    console.log("SERVER ERROR:", err)
+    return res.status(500).json({ error: "server crash" })
+  }
 })
 
 // ========================
