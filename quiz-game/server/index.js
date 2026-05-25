@@ -178,58 +178,39 @@ app.post("/login", (req, res) => {
 // QUESTIONS (CRITICAL FIX)
 // ========================
 app.post("/questions", (req, res) => {
-  try {
 
-    console.log("BODY:", req.body)
+  console.log("BODY:", req.body)
 
-    const themes = req.body?.themes
+  const themes = req.body?.themes
 
-    if (!Array.isArray(themes) || themes.length === 0) {
-      return res.json([])
+  console.log("THEMES:", themes)
+
+  if (!Array.isArray(themes) || themes.length === 0) {
+    return res.json([])
+  }
+
+  const placeholders = themes.map(() => "?").join(",")
+
+  const sql = `
+    SELECT * FROM questions
+    WHERE theme IN (${placeholders})
+    ORDER BY RAND()
+    LIMIT 10
+  `
+
+  console.log("SQL:", sql)
+
+  connection.query(sql, themes, (err, results) => {
+
+    if (err) {
+      console.log("MYSQL ERROR:", err)
+      return res.status(500).json([])
     }
 
-    const placeholders = themes.map(() => "?").join(",")
+    console.log("RESULTADOS:", results.length)
 
-    const sql = `
-      SELECT * FROM questions
-      WHERE theme IN (${placeholders})
-      ORDER BY RAND()
-      LIMIT 10
-    `
-
-    connection.query(sql, themes, (err, results) => {
-
-      if (err) {
-        console.log("MYSQL ERROR:", err)
-        return res.status(500).json({
-          error: "DB error"
-        })
-      }
-
-      if (!results) {
-        return res.json([])
-      }
-
-      const formatted = results.map(q => ({
-        id: q.id,
-        question: q.question,
-        options: [
-          q.option1,
-          q.option2,
-          q.option3,
-          q.option4
-        ],
-        answer: q.answer,
-        theme: q.theme
-      }))
-
-      return res.json(formatted)
-    })
-
-  } catch (err) {
-    console.log("SERVER ERROR:", err)
-    return res.status(500).json({ error: "server crash" })
-  }
+    res.json(results)
+  })
 })
 
 // ========================
