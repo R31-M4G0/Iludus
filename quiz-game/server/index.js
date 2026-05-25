@@ -178,11 +178,14 @@ app.post("/login", (req, res) => {
 // QUESTIONS (CRITICAL FIX)
 // ========================
 app.post("/questions", (req, res) => {
+  console.log("BODY COMPLETO:", req.body)
+
   const themes = req.body?.themes
 
   console.log("THEMES RECEBIDOS:", themes)
 
   if (!Array.isArray(themes) || themes.length === 0) {
+    console.log("❌ THEMES INVALIDOS")
     return res.json([])
   }
 
@@ -195,16 +198,27 @@ app.post("/questions", (req, res) => {
     LIMIT 10
   `
 
+  console.log("SQL:", sql)
+  console.log("PARAMS:", themes)
+
   connection.query(sql, themes, (err, results) => {
+
     if (err) {
-      console.log("MYSQL ERROR:", err)
+      console.log("❌ MYSQL ERROR:", err)
       return res.status(500).json([])
     }
 
-    const formatted = (results || []).map(q => ({
+    console.log("QUESTÕES ENCONTRADAS:", results.length)
+
+    const formatted = results.map(q => ({
       id: q.id,
       question: q.question,
-      options: [q.option1, q.option2, q.option3, q.option4],
+      options: [
+        q.option1,
+        q.option2,
+        q.option3,
+        q.option4
+      ],
       answer: q.answer,
       theme: q.theme,
       difficulty: q.difficulty
