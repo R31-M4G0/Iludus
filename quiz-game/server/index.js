@@ -213,20 +213,22 @@ app.post("/questions", (req, res) => {
   })
 })
 
-app.get("/questions-test", (req, res) => {
+app.get("/questions-test", async (req, res) => {
 
-  connection.query(
-    "SELECT * FROM questions LIMIT 5",
-    (err, results) => {
+  try {
 
-      if (err) {
-        console.log(err)
-        return res.status(500).json(err)
-      }
+    const [results] = await connection.query(
+      "SELECT * FROM questions LIMIT 5"
+    )
 
-      res.json(results)
-    }
-  )
+    res.json(results)
+
+  } catch (err) {
+
+    console.log(err)
+
+    res.status(500).json(err)
+  }
 })
 
 // ========================
