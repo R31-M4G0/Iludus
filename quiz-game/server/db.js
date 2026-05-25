@@ -3,37 +3,44 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-const pool = mysql.createPool({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER,
-  password: process.env.MYSQLPASSWORD,
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT,
+function createPool() {
+  return mysql.createPool({
+    host: process.env.MYSQLHOST,
+    user: process.env.MYSQLUSER,
+    password: process.env.MYSQLPASSWORD,
+    database: process.env.MYSQLDATABASE,
+    port: process.env.MYSQLPORT,
 
-  waitForConnections: true,
-  connectionLimit: 10,
-  queueLimit: 0,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0,
+    connectTimeout: 10000
+  })
+}
 
-  connectTimeout: 10000,
-  enableKeepAlive: true,
-  keepAliveInitialDelay: 0
-})
+const pool = createPool()
 
-async function testConnection() {
+// TESTE DE CONEXÃO AUTOMÁTICO COM RETRY
+async function keepAlive() {
   try {
-
-    const connection = await pool.getConnection()
-
+    const conn = await pool.getConnection()
+    await conn.ping()
+    conn.release()
     console.log("DB CONNECTED")
-
-    connection.release()
-
   } catch (err) {
+    console.log("DB LOST, retrying...", err.code)
 
-    console.log("DB ERROR:", err)
+    // recria pool automaticamente
+    setTimeout(() => {
+      pool.end().catch(() => {})
+      Object.assign(pool, createPool())
+      keepAlive()
+    }, 5000)
   }
 }
 
-testConnection()
+keepAlive()
 
 export default pool

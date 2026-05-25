@@ -177,42 +177,42 @@ app.post("/login", (req, res) => {
 // ========================
 // QUESTIONS (CRITICAL FIX)
 // ========================
-app.post("/questions", (req, res) => {
+app.post("/questions", async (req, res) => {
+  try {
 
-  console.log("BODY:", req.body)
+    const themes = req.body?.themes
 
-  const themes = req.body?.themes
-
-  console.log("THEMES:", themes)
-
-  if (!Array.isArray(themes) || themes.length === 0) {
-    return res.json([])
-  }
-
-  const placeholders = themes.map(() => "?").join(",")
-
-  const sql = `
-    SELECT * FROM questions
-    WHERE theme IN (${placeholders})
-    ORDER BY RAND()
-    LIMIT 10
-  `
-
-  console.log("SQL:", sql)
-
-  connection.query(sql, themes, (err, results) => {
-
-    if (err) {
-      console.log("MYSQL ERROR:", err)
-      return res.status(500).json([])
+    if (!Array.isArray(themes) || themes.length === 0) {
+      return res.json([])
     }
 
-    console.log("RESULTADOS:", results.length)
+    const placeholders = themes.map(() => "?").join(",")
 
-    res.json(results)
-  })
+    const sql = `
+      SELECT * FROM questions
+      WHERE theme IN (${placeholders})
+      ORDER BY RAND()
+      LIMIT 10
+    `
+
+    const [results] = await connection.query(sql, themes)
+
+    const formatted = results.map(q => ({
+      id: q.id,
+      question: q.question,
+      options: [q.option1, q.option2, q.option3, q.option4],
+      answer: q.answer,
+      theme: q.theme,
+      difficulty: q.difficulty
+    }))
+
+    res.json(formatted)
+
+  } catch (err) {
+    console.log("MYSQL ERROR:", err)
+    res.status(500).json([])
+  }
 })
-
 app.get("/questions-test", async (req, res) => {
 
   try {
