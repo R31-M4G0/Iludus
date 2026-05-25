@@ -15,6 +15,7 @@ const app = express()
 // ========================
 app.use(cors({
   origin: [
+    "http://localhost:5173",
     "https://iludus-2jaq.vercel.app"
   ],
   credentials: true
