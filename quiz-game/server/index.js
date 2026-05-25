@@ -213,6 +213,22 @@ app.post("/questions", (req, res) => {
   })
 })
 
+app.get("/questions-test", (req, res) => {
+
+  connection.query(
+    "SELECT * FROM questions LIMIT 5",
+    (err, results) => {
+
+      if (err) {
+        console.log(err)
+        return res.status(500).json(err)
+      }
+
+      res.json(results)
+    }
+  )
+})
+
 // ========================
 // SAVE ANSWER / SCORE (UNCHANGED BUT SAFE)
 // ========================
